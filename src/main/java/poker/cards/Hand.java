@@ -112,7 +112,6 @@ public class Hand {
 	 * @return フォーカードかどうか。
 	 */
 	private boolean isFourth(List<Card> hand) {
-//		sortInAscByNum(hand);
 		boolean isFourth = false;
 		for (int i = 3; i < 5; i++) {
 			// 【違反！！】メソッド内のインデントは1段まで
@@ -129,7 +128,6 @@ public class Hand {
 	 * @return フルハウスかどうか。
 	 */
 	private boolean isFullHouse(List<Card> hand) {
-//		sortInAscByNum(hand);
 		int sameNum = 0;
 		for (int i = 1; i < 5; i++) {
 			sameNum += isSameNum(hand.get(i - 1), hand.get(i)) ? 1 : 0;
@@ -145,7 +143,6 @@ public class Hand {
 	 * @return フラッシュかどうか。
 	 */
 	private boolean isFlush(List<Card> hand) {
-//		sortInAscByNum(hand);
 		boolean isFlush = true;
 		for (int i = 1; i < 5; i++) {
 			// 【違反！！】メソッド内のインデントは1段まで
@@ -162,7 +159,6 @@ public class Hand {
 	 * @return ストレートかどうか。
 	 */
 	private boolean isStraight(List<Card> hand) {
-//		sortInAscByNum(hand);
 		boolean isStraight = true;
 		for (int i = 1; i < 5; i++) {
 			// 【違反！！】メソッド内のインデントは1段まで
@@ -179,7 +175,6 @@ public class Hand {
 	 * @return スリーカードかどうか。
 	 */
 	private boolean isTriple(List<Card> hand) {
-//		sortInAscByNum(hand);
 		boolean isTriple = false;
 		for (int i = 2; i < 5; i++) {
 			// 【違反！！】メソッド内のインデントは1段まで
@@ -196,7 +191,6 @@ public class Hand {
 	 * @return ツーペアかどうか。
 	 */
 	private boolean isTwoPair(List<Card> hand) {
-//		sortInAscByNum(hand);
 		int pairNum = 0;
 		for (int i = 1; i < 5; i++) {
 			pairNum += isSameNum(hand.get(i - 1), hand.get(i)) ? 1 : 0;
@@ -212,7 +206,6 @@ public class Hand {
 	 * @return ワンペアかどうか。
 	 */
 	private boolean isPair(List<Card> hand) {
-//		sortInAscByNum(hand);
 		int pairNum = 0;
 		for (int i = 1; i < 5; i++) {
 			pairNum += isSameNum(hand.get(i - 1), hand.get(i)) ? 1 : 0;
@@ -228,7 +221,6 @@ public class Hand {
 	 * @return カードの数字が1,10,11,12,13であるかどうか。
 	 */
 	private boolean isRoyal(List<Card> hand) {
-//		sortInAscByNum(hand);
 		// 【違反！！】1行につきドットは1つまで
 		if (hand.get(0).getNumber() == 1 &&
 				hand.get(1).getNumber() == 10 &&

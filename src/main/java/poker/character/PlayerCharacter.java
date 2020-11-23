@@ -2,6 +2,12 @@ package poker.character;
 
 import java.util.Scanner;
 
+/**
+ * @author ganba
+ *
+ * ユーザーが操作するプレイヤー。
+ */
+//【違反！！】1つのクラスは50行、1ディレクトリは10ファイルまで
 public class PlayerCharacter extends Player {
 
 	@Override
@@ -33,11 +39,6 @@ public class PlayerCharacter extends Player {
 		}
 
 		System.out.println("交換しました。");
-	}
-
-	@Override
-	public String openPokerHand() {
-		return hand.decidePokerHand();
 	}
 
 	/**

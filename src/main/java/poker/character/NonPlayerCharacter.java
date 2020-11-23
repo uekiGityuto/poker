@@ -1,23 +1,27 @@
 package poker.character;
 
+import poker.strategy.Strategy;
+
+/**
+ * @author ganba
+ *
+ * コンピューターが操作するプレイヤー。
+ */
 public class NonPlayerCharacter extends Player {
+	private Strategy strategy;
+
+	public NonPlayerCharacter(Strategy strategy) {
+		this.strategy = strategy;
+	}
 
 	@Override
 	public void checkCard() {
-		// TODO 自動生成されたメソッド・スタブ
 
 	}
 
 	@Override
 	public void changeCard() {
-		// TODO 自動生成されたメソッド・スタブ
-
-	}
-
-	@Override
-	public String openPokerHand() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		this.hand = strategy.changeCard(this.hand);
 	}
 
 }

@@ -27,5 +27,7 @@ public abstract class Player {
 	/**
 	 * @return 手札で完成した役。
 	 */
-	public abstract String openPokerHand();
+	public String openPokerHand() {
+		return hand.decidePokerHand();
+	}
 }
