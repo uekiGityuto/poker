@@ -40,8 +40,10 @@ public class Hand {
 	 *
 	 * i番目の手札を交換する。
 	 */
-	public void change(int i) {
-		hand.set(i, Stock.openTop());
+	public void change(List<Integer> intIndexes) {
+		for(int i : intIndexes) {
+			hand.set(i, Stock.openTop());
+		}
 		sortInAscByNum(hand);
 		setPokerHandAndRank();
 	}

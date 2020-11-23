@@ -1,5 +1,8 @@
 package poker.character;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -32,11 +35,13 @@ public class PlayerCharacter extends Player {
 			return;
 		}
 
-		String[] indexes = input.split(" ");
-		for (String index : indexes) {
+		List<String> strIndexes = Arrays.asList(input.split(" "));
+		List<Integer> intIndexes = new ArrayList<>();
+		for (String index : strIndexes) {
 			checkIndex(index);
-			hand.change(Integer.parseInt(index));
+			intIndexes.add(Integer.parseInt(index));
 		}
+		hand.change(intIndexes);
 
 		System.out.println("交換しました。");
 	}
