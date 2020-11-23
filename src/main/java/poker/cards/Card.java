@@ -26,4 +26,10 @@ public abstract class Card implements Comparable<Card>{
 	 */
 	// 【違反！！】Getter,Setter,publicプロパティの禁止
 	abstract int getNumber();
+
+	/**
+	 * @return トランプのランク
+	 */
+	// 【違反！！】Getter,Setter,publicプロパティの禁止
+	abstract int getRank();
 }

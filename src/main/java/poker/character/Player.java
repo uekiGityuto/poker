@@ -27,7 +27,14 @@ public abstract class Player {
 	/**
 	 * @return 手札で完成した役。
 	 */
-	public String openPokerHand() {
-		return hand.decidePokerHand();
+	public String getPokerHand() {
+		return hand.getPokerHand();
+	}
+
+	/**
+	 * @return 手札で完成したランク。
+	 */
+	public int getRank() {
+		return hand.getRank();
 	}
 }

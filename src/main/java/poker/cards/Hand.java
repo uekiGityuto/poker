@@ -10,8 +10,11 @@ import java.util.List;
  * トランプの手札。
  */
 //【違反！！】1つのクラスは50行、1ディレクトリは10ファイルまで
+//【違反！！】1つのクラスにつきインスタンス変数は2つまで
 public class Hand {
 	private List<Card> hand = new ArrayList<>();
+	private String pokerHand;
+	private int rank;
 
 	public Hand() {
 		// 山札から5枚引いて手札にする
@@ -19,6 +22,7 @@ public class Hand {
 			hand.add(Stock.openTop());
 		}
 		sortInAscByNum(hand);
+		setPokerHandAndRank();
 	}
 
 	/**
@@ -40,42 +44,59 @@ public class Hand {
 	public void change(int i) {
 		hand.set(i, Stock.openTop());
 		sortInAscByNum(hand);
+		setPokerHandAndRank();
 	}
 
 	/**
-	 * @return 手札から作れる（最高の）ポーカーの役。
-	 *
+	 * 手札から作れる（最高の）ポーカーの役とランクをセットする。
 	 * ※一旦、ジョーカーは考慮しない。
 	 */
-	public String decidePokerHand() {
+	private void setPokerHandAndRank() {
 		if (isRoyalStraightFlush(hand)) {
-			return "Royal Straight Flush";
+			return;
 		}
 		if (isStraightFlush(hand)) {
-			return "Straight Flush";
+			return;
+		}
+		if (isFourth(hand)) {
+			return;
 		}
 		if (isFullHouse(hand)) {
-			return "Four of a Kind";
-		}
-		if (isFullHouse(hand)) {
-			return "Full House";
+			return;
 		}
 		if (isFlush(hand)) {
-			return "Flush";
+			return;
 		}
 		if (isStraight(hand)) {
-			return "Straight";
+			return;
 		}
 		if (isTriple(hand)) {
-			return "Three of a Kind";
+			return;
 		}
 		if (isTwoPair(hand)) {
-			return "Two Pair";
+			return;
 		}
 		if (isPair(hand)) {
-			return "Pair";
+			return;
 		}
-		return "Nothing";
+		this.pokerHand = "Nothing";
+		this.rank = 0;
+	}
+
+	/**
+	 * @return この手札の役
+	 */
+	// 【違反！！】Getter,Setter,publicプロパティの禁止
+	public String getPokerHand() {
+		return this.pokerHand;
+	}
+
+	/**
+	 * @return この手札のランク
+	 */
+	// 【違反！！】Getter,Setter,publicプロパティの禁止
+	public int getRank() {
+		return this.rank;
 	}
 
 	/**
@@ -87,10 +108,12 @@ public class Hand {
 
 	/**
 	 * @param hand
-	 * @return ストレートフラッシュかどうか。
+	 * @return ロイヤルストレートフラッシュかどうか。
 	 */
 	private boolean isRoyalStraightFlush(List<Card> hand) {
 		if (isRoyal(hand) && isStraightFlush(hand)) {
+			this.pokerHand = "Royal Straight Flush";
+			this.rank = 99;
 			return true;
 		}
 		return false;
@@ -102,6 +125,9 @@ public class Hand {
 	 */
 	private boolean isStraightFlush(List<Card> hand) {
 		if (isStraight(hand) && isFlush(hand)) {
+			this.pokerHand = "Straight Flush";
+			// 【違反！！】1行につきドットは1つまで
+			this.rank = hand.get(4).getRank();
 			return true;
 		}
 		return false;
@@ -117,6 +143,9 @@ public class Hand {
 			// 【違反！！】メソッド内のインデントは1段まで
 			if (isSameNum(hand.get(i - 3), hand.get(i - 2), hand.get(i - 1), hand.get(i))) {
 				isFourth = true;
+				this.pokerHand = "Four of a Kind";
+				// 【違反！！】1行につきドットは1つまで
+				this.rank = hand.get(i).getRank();
 				break;
 			}
 		}
@@ -128,14 +157,21 @@ public class Hand {
 	 * @return フルハウスかどうか。
 	 */
 	private boolean isFullHouse(List<Card> hand) {
-		int sameNum = 0;
-		for (int i = 1; i < 5; i++) {
-			sameNum += isSameNum(hand.get(i - 1), hand.get(i)) ? 1 : 0;
+		boolean isFullHouse = false;
+		for (int i = 2; i < 5; i++) {
+			// 【違反！！】メソッド内のインデントは1段まで
+			if (isSameNum(hand.get(i - 2), hand.get(i - 1), hand.get(i))) {
+				List<Card> restHand = makeRestHand(hand, i);
+				if(isSameNum(restHand.get(0), restHand.get(1))) {
+					isFullHouse = true;
+					this.pokerHand = "Full House";
+					// 【違反！！】1行につきドットは1つまで
+					this.rank = hand.get(i).getRank();
+				}
+				break;
+			}
 		}
-		if (sameNum == 3 && !isFourth(hand)) {
-			return true;
-		}
-		return false;
+		return isFullHouse;
 	}
 
 	/**
@@ -150,6 +186,11 @@ public class Hand {
 				isFlush = false;
 				break;
 			}
+		}
+		if(isFlush) {
+			this.pokerHand = "Flush";
+			// 【違反！！】1行につきドットは1つまで
+			this.rank = hand.get(4).getRank();
 		}
 		return isFlush;
 	}
@@ -167,6 +208,11 @@ public class Hand {
 				break;
 			}
 		}
+		if(isStraight) {
+			this.pokerHand = "Straight";
+			// 【違反！！】1行につきドットは1つまで
+			this.rank = hand.get(4).getRank();
+		}
 		return isStraight;
 	}
 
@@ -180,6 +226,9 @@ public class Hand {
 			// 【違反！！】メソッド内のインデントは1段まで
 			if (isSameNum(hand.get(i - 2), hand.get(i - 1), hand.get(i))) {
 				isTriple = true;
+				this.pokerHand = "Three of a Kind";
+				// 【違反！！】1行につきドットは1つまで
+				this.rank = hand.get(i).getRank();
 				break;
 			}
 		}
@@ -191,11 +240,17 @@ public class Hand {
 	 * @return ツーペアかどうか。
 	 */
 	private boolean isTwoPair(List<Card> hand) {
-		int pairNum = 0;
+		int pairCount = 0;
+		List<Integer> pairNumList = new ArrayList<>(); // ペアになった数字のリスト
 		for (int i = 1; i < 5; i++) {
-			pairNum += isSameNum(hand.get(i - 1), hand.get(i)) ? 1 : 0;
+			if(isSameNum(hand.get(i - 1), hand.get(i))) {
+				pairCount += 1;
+				pairNumList.add(hand.get(i).getRank());
+			}
 		}
-		if (pairNum == 2) {
+		if (pairCount == 2) {
+			this.pokerHand = "Two Pair";
+			this.rank = Collections.max(pairNumList);
 			return true;
 		}
 		return false;
@@ -206,11 +261,19 @@ public class Hand {
 	 * @return ワンペアかどうか。
 	 */
 	private boolean isPair(List<Card> hand) {
-		int pairNum = 0;
+		int pairCount = 0;
+		int pairNum = 0; // ペアになった数字
 		for (int i = 1; i < 5; i++) {
-			pairNum += isSameNum(hand.get(i - 1), hand.get(i)) ? 1 : 0;
+			// 【違反！！】メソッド内のインデントは1段まで
+			if(isSameNum(hand.get(i - 1), hand.get(i))) {
+				pairCount += 1;
+				// 【違反！！】1行につきドットは1つまで
+				pairNum = hand.get(i).getRank();
+			}
 		}
-		if (pairNum == 1) {
+		if (pairCount == 1) {
+			this.pokerHand = "Pair";
+			this.rank = pairNum;
 			return true;
 		}
 		return false;
@@ -230,6 +293,34 @@ public class Hand {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @param hand
+	 * @param i
+	 * @return 手札から3枚の同じ数字を除いた残り
+	 *
+	 * 手札を数字の小さい順にa,b,c,d,eとしたとき、
+	 * 3枚同じ数字になりうるのは「a,b,c」、「b,c,d」、「c,d,e」の3パターンのみ。
+	 * a,b,c,d,eの添え字はそれぞれ0,1,2,3,4だから、添え字をiとすると、
+	 * 3枚同じ数字になるのは、(i-2)+(i-1)+iが3,6,9となる3パターンのみ。
+	 * この3パターンで場合分けして、手札から3枚の同じ数字を除いた残りを作る。
+	 */
+	private List<Card> makeRestHand(List<Card> hand, int i) {
+		List<Card> restHand = new ArrayList<>();
+		if(i == 2) {
+			restHand.add(hand.get(3));
+			restHand.add(hand.get(4));
+		}
+		if(i == 3) {
+			restHand.add(hand.get(0));
+			restHand.add(hand.get(4));
+		}
+		if(i == 4) {
+			restHand.add(hand.get(0));
+			restHand.add(hand.get(1));
+		}
+		return restHand;
 	}
 
 	/**

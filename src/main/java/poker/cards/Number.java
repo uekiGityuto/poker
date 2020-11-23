@@ -18,7 +18,7 @@ public class Number {
 	/**
 	 * @return ポーカーにおけるこの数字のランク。（大きい方が価値が高い）
 	 */
-	int rank() {
+	int getRank() {
 		if(this.number == 1) {
 			return 14;
 		}

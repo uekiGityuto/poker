@@ -31,6 +31,12 @@ public class NormalCard extends Card {
 	}
 
 	@Override
+	int getRank() {
+		return number.getRank();
+	}
+
+
+	@Override
 	public int compareTo(Card card) {
 		if (this.getNumber() < card.getNumber()) {
 			return -1;

@@ -18,13 +18,19 @@ public class Joker extends Card {
 	}
 
 	@Override
+	String getSuit() {
+		return "Joker";
+	}
+
+
+	@Override
 	int getNumber() {
-		return number.getNumber();
+		return 99;
 	}
 
 	@Override
-	String getSuit() {
-		return suit.getSuit();
+	int getRank() {
+		return 99;
 	}
 
 	@Override
