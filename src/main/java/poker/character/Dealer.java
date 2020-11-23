@@ -31,8 +31,18 @@ public class Dealer {
 	 * 勝敗を判定する。
 	 */
 	public void judge(PokerHand pcHand, PokerHand npcHand) {
-		System.out.println("あなたの役は" + pcHand.getRank() + "の" + pcHand.getPokerHand() + "です。");
-		System.out.println("相手の役は" + pcHand.getRank() + "の" + npcHand.getPokerHand() + "です。");
+		// 【違反！！】else禁止
+		if(pcHand.getRank() <= 0 || 15 <= pcHand.getRank()) {
+			System.out.println("あなたの役は" + pcHand.getPokerHand() + "です。");
+		} else {
+			System.out.println("あなたの役は" + pcHand.getRank() + "の" + pcHand.getPokerHand() + "です。");
+		}
+		// 【違反！！】else禁止
+		if(pcHand.getRank() <= 0 || 15 <= npcHand.getRank()) {
+			System.out.println("相手の役は" + npcHand.getPokerHand() + "です。");
+		} else {
+			System.out.println("相手の役は" + pcHand.getRank() + "の" + npcHand.getPokerHand() + "です。");
+		}
 
 		List<String> pokerHandOrder = PokerHandOrder.getPokerHandOrder();
 
