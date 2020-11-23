@@ -14,11 +14,17 @@ public class PlayerCharacter extends Player {
 	@Override
 	public void changeCard() {
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("交換したいカードの番号（0～4）をスペース区切りで入力して下さい。");
+		System.out.println("交換したいカードの番号（0～4）をスペース区切りで入力し、Enterキーを押下して下さい。");
+		System.out.println("交換しない場合は何も入力せずにEnterキーを押下して下さい。");
 		System.out.println("例）1 3");
 
 		String input = scanner.nextLine();
 		scanner.close();
+
+		if (input.equals("")) {
+			System.out.println("交換しませんでした。");
+			return;
+		}
 
 		String[] indexes = input.split(" ");
 		for (String index : indexes) {
@@ -27,6 +33,11 @@ public class PlayerCharacter extends Player {
 		}
 
 		System.out.println("交換しました。");
+	}
+
+	@Override
+	public String openPokerHand() {
+		return hand.decidePokerHand();
 	}
 
 	/**

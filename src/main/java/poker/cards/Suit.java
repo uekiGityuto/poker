@@ -10,20 +10,20 @@ public class Suit {
 
 	Suit(String suit) {
 		switch(suit) {
-		case "club":
+		case "Club":
 			this.suit = suit;
 			break;
-		case "diamond":
+		case "Diamond":
 			this.suit = suit;
 			break;
-		case "heart":
+		case "Heart":
 			this.suit = suit;
 			break;
-		case "spade":
+		case "Spade":
 			this.suit = suit;
 			break;
 		default:
-			throw new IllegalArgumentException("club、diamond、heart、spade以外は使用できません。");
+			throw new IllegalArgumentException("Club、Diamond、Heart、Spade以外は使用できません。");
 		}
 	}
 
@@ -32,5 +32,13 @@ public class Suit {
 	 */
 	public void display() {
 		System.out.print(this.suit);
+	}
+
+	/**
+	 * @return このスート。
+	 */
+	// 【違反！！】Getter,Setter,publicプロパティの禁止
+	public String getSuit() {
+		return this.suit;
 	}
 }

@@ -5,9 +5,7 @@ package poker.cards;
  *
  * Joker以外のカード。
  */
-public class NormalCard implements Card {
-	private Suit suit;
-	private Number number;
+public class NormalCard extends Card {
 
 	public NormalCard(String suit, int number) {
 		this.suit = new Suit(suit);
@@ -15,11 +13,31 @@ public class NormalCard implements Card {
 	}
 
 	@Override
-	public void display() {
+	void display() {
 		number.display();
 		System.out.print(" of ");
 		suit.display();
 		System.out.println();
 	}
 
+	@Override
+	String getSuit() {
+		return suit.getSuit();
+	}
+
+	@Override
+	int getNumber() {
+		return number.getNumber();
+	}
+
+	@Override
+	public int compareTo(Card card) {
+		if (this.getNumber() < card.getNumber()) {
+			return -1;
+		}
+		if (this.getNumber() > card.getNumber()) {
+			return 1;
+		}
+		return 0;
+	}
 }

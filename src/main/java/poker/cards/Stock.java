@@ -21,12 +21,12 @@ public class Stock {
 	 */
 	private static Deque<Card> makeStock() {
 		List<Card> cardList = new ArrayList<Card>();
-		cardList.add(new Joker());
+//		cardList.add(new Joker());
 		for (int i = 1; i < 14; i++) {
-			cardList.add(new NormalCard("club", i));
-			cardList.add(new NormalCard("diamond", i));
-			cardList.add(new NormalCard("heart", i));
-			cardList.add(new NormalCard("spade", i));
+			cardList.add(new NormalCard("Club", i));
+			cardList.add(new NormalCard("Diamond", i));
+			cardList.add(new NormalCard("Heart", i));
+			cardList.add(new NormalCard("Spade", i));
 		}
 		Collections.shuffle(cardList);
 		Deque<Card> stock = new ArrayDeque<>();

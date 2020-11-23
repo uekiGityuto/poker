@@ -35,4 +35,12 @@ public class Number {
 		}
 		System.out.print(this.number);
 	}
+
+	/**
+	 * @return この数字。
+	 */
+	// 【違反！！】Getter,Setter,publicプロパティの禁止
+	int getNumber() {
+		return this.number;
+	}
 }

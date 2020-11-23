@@ -9,6 +9,7 @@ public class Main {
 		you.checkCard();
 		you.changeCard();
 		you.checkCard();
+		System.out.println(you.openPokerHand());
 	}
 
 }

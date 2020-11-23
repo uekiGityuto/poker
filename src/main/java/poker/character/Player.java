@@ -23,4 +23,9 @@ public abstract class Player {
 	 * 手札を交換する。
 	 */
 	public abstract void changeCard();
+
+	/**
+	 * @return 手札で完成した役。
+	 */
+	public abstract String openPokerHand();
 }
