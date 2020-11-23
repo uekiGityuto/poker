@@ -1,6 +1,7 @@
 package poker.character;
 
 import poker.cards.Hand;
+import poker.cards.PokerHand;
 
 /**
  * @author ganba
@@ -27,14 +28,9 @@ public abstract class Player {
 	/**
 	 * @return 手札で完成した役。
 	 */
-	public String getPokerHand() {
+
+	public PokerHand getPokerHand() {
 		return hand.getPokerHand();
 	}
 
-	/**
-	 * @return 手札で完成したランク。
-	 */
-	public int getRank() {
-		return hand.getRank();
-	}
 }

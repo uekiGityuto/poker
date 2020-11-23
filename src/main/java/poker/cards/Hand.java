@@ -13,8 +13,7 @@ import java.util.List;
 //【違反！！】1つのクラスにつきインスタンス変数は2つまで
 public class Hand {
 	private List<Card> hand = new ArrayList<>();
-	private String pokerHand;
-	private int rank;
+	private PokerHand pokerHand;
 
 	public Hand() {
 		// 山札から5枚引いて手札にする
@@ -79,24 +78,15 @@ public class Hand {
 		if (isPair(hand)) {
 			return;
 		}
-		this.pokerHand = "Nothing";
-		this.rank = 0;
+		this.pokerHand = new PokerHand("Nothing", 0);
 	}
 
 	/**
 	 * @return この手札の役
 	 */
 	// 【違反！！】Getter,Setter,publicプロパティの禁止
-	public String getPokerHand() {
+	public PokerHand getPokerHand() {
 		return this.pokerHand;
-	}
-
-	/**
-	 * @return この手札のランク
-	 */
-	// 【違反！！】Getter,Setter,publicプロパティの禁止
-	public int getRank() {
-		return this.rank;
 	}
 
 	/**
@@ -112,8 +102,7 @@ public class Hand {
 	 */
 	private boolean isRoyalStraightFlush(List<Card> hand) {
 		if (isRoyal(hand) && isStraightFlush(hand)) {
-			this.pokerHand = "Royal Straight Flush";
-			this.rank = 99;
+			this.pokerHand = new PokerHand("Royal Straight Flush", 99);
 			return true;
 		}
 		return false;
@@ -125,9 +114,8 @@ public class Hand {
 	 */
 	private boolean isStraightFlush(List<Card> hand) {
 		if (isStraight(hand) && isFlush(hand)) {
-			this.pokerHand = "Straight Flush";
 			// 【違反！！】1行につきドットは1つまで
-			this.rank = hand.get(4).getRank();
+			this.pokerHand = new PokerHand("Straight Flush", hand.get(4).getRank());
 			return true;
 		}
 		return false;
@@ -143,9 +131,8 @@ public class Hand {
 			// 【違反！！】メソッド内のインデントは1段まで
 			if (isSameNum(hand.get(i - 3), hand.get(i - 2), hand.get(i - 1), hand.get(i))) {
 				isFourth = true;
-				this.pokerHand = "Four of a Kind";
 				// 【違反！！】1行につきドットは1つまで
-				this.rank = hand.get(i).getRank();
+				this.pokerHand = new PokerHand("Four of a Kind", hand.get(i).getRank());
 				break;
 			}
 		}
@@ -164,9 +151,8 @@ public class Hand {
 				List<Card> restHand = makeRestHand(hand, i);
 				if(isSameNum(restHand.get(0), restHand.get(1))) {
 					isFullHouse = true;
-					this.pokerHand = "Full House";
 					// 【違反！！】1行につきドットは1つまで
-					this.rank = hand.get(i).getRank();
+					this.pokerHand = new PokerHand("Full House", hand.get(i).getRank());
 				}
 				break;
 			}
@@ -188,9 +174,8 @@ public class Hand {
 			}
 		}
 		if(isFlush) {
-			this.pokerHand = "Flush";
 			// 【違反！！】1行につきドットは1つまで
-			this.rank = hand.get(4).getRank();
+			this.pokerHand = new PokerHand("Flush", hand.get(4).getRank());
 		}
 		return isFlush;
 	}
@@ -209,9 +194,8 @@ public class Hand {
 			}
 		}
 		if(isStraight) {
-			this.pokerHand = "Straight";
 			// 【違反！！】1行につきドットは1つまで
-			this.rank = hand.get(4).getRank();
+			this.pokerHand = new PokerHand("Straight", hand.get(4).getRank());
 		}
 		return isStraight;
 	}
@@ -226,9 +210,8 @@ public class Hand {
 			// 【違反！！】メソッド内のインデントは1段まで
 			if (isSameNum(hand.get(i - 2), hand.get(i - 1), hand.get(i))) {
 				isTriple = true;
-				this.pokerHand = "Three of a Kind";
 				// 【違反！！】1行につきドットは1つまで
-				this.rank = hand.get(i).getRank();
+				this.pokerHand = new PokerHand("Three of a Kind", hand.get(i).getRank());
 				break;
 			}
 		}
@@ -249,8 +232,7 @@ public class Hand {
 			}
 		}
 		if (pairCount == 2) {
-			this.pokerHand = "Two Pair";
-			this.rank = Collections.max(pairNumList);
+			this.pokerHand = new PokerHand("Two Pair", Collections.max(pairNumList));
 			return true;
 		}
 		return false;
@@ -272,8 +254,7 @@ public class Hand {
 			}
 		}
 		if (pairCount == 1) {
-			this.pokerHand = "Pair";
-			this.rank = pairNum;
+			this.pokerHand = new PokerHand("Pair", pairNum);
 			return true;
 		}
 		return false;

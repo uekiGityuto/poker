@@ -2,6 +2,7 @@ package poker.character;
 
 import java.util.List;
 
+import poker.cards.PokerHand;
 import poker.cards.PokerHandOrder;
 
 /**
@@ -29,16 +30,16 @@ public class Dealer {
 	 *
 	 * 勝敗を判定する。
 	 */
-	public void judge(String pcHand, String npcHand) {
-		System.out.println("あなたの役は" + pcHand + "です。");
-		System.out.println("相手の役は" + npcHand + "です。");
+	public void judge(PokerHand pcHand, PokerHand npcHand) {
+		System.out.println("あなたの役は" + pcHand.getRank() + "の" + pcHand.getPokerHand() + "です。");
+		System.out.println("相手の役は" + pcHand.getRank() + "の" + npcHand.getPokerHand() + "です。");
 
 		List<String> pokerHandOrder = PokerHandOrder.getPokerHandOrder();
 
 		int pcOrder = 0;
 		for (String pokerHand : pokerHandOrder) {
 			// 【違反！！】メソッド内のインデントは1段まで
-			if (pokerHand == pcHand) {
+			if (pokerHand == pcHand.getPokerHand()) {
 				break;
 			}
 			pcOrder++;
@@ -51,7 +52,7 @@ public class Dealer {
 		int npcOrder = 0;
 		for (String pokerHand : pokerHandOrder) {
 			// 【違反！！】メソッド内のインデントは1段まで
-			if (pokerHand == npcHand) {
+			if (pokerHand == npcHand.getPokerHand()) {
 				break;
 			}
 			npcOrder++;
@@ -69,10 +70,32 @@ public class Dealer {
 			return;
 		}
 		if (pcOrder == npcOrder) {
-			System.out.println("引き分けです。");
+			judgeByRank(pcHand.getRank(), npcHand.getRank());
 			return;
 		}
 		System.out.println("判定不能です。");
+	}
+
+	/**
+	 * @param pcRank
+	 * @param npcRank
+	 *
+	 * ランクで比較して勝敗を判定する。
+	 * ※役が同じ場合のみ使用する。
+	 */
+	private void judgeByRank(int pcRank, int npcRank) {
+		if (pcRank < npcRank) {
+			System.out.println("あなたの負けです。");
+			return;
+		}
+		if (pcRank > npcRank) {
+			System.out.println("あなたの勝利です。");
+			return;
+		}
+		if (pcRank == npcRank) {
+			System.out.println("引き分けです。");
+			return;
+		}
 	}
 
 }

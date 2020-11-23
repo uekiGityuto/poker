@@ -14,13 +14,11 @@ public class Main {
 		you.checkCard();
 		you.changeCard();
 		you.checkCard();
-		System.out.println(you.getPokerHand());
-		System.out.println(you.getRank());
 
 		npc.changeCard();
 
 		Dealer dealer = Dealer.getInstance();
-//		dealer.judge(you.getPokerHand(), npc.openPokerHand());
+		dealer.judge(you.getPokerHand(), npc.getPokerHand());
 	}
 
 }
